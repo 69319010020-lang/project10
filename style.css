@@ -2,7 +2,7 @@
 
 /* Custom Variables */
 :root {
-    --bg-gradient: linear-gradient(135deg, #bae6fd 0%, #fce7f3 100%);
+    --bg-gradient: linear-gradient(135deg, #fce7f3 0%, #dbeafe 100%);
     --card-bg: rgba(255, 255, 255, 0.45);
     --card-border: rgba(255, 255, 255, 0.6);
     --text-primary: #0f172a;
