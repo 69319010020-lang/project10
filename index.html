@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Premium Tic Tac Toe</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="title">Tic Tac Toe</h1>
+            <button id="sound-toggle" class="btn-icon" aria-label="เปิด/ปิดเสียง">
+                <!-- Sound On Icon (Default) -->
+                <svg id="sound-on-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                </svg>
+                <!-- Sound Off Icon (Hidden by default) -->
+                <svg id="sound-off-svg" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+            </button>
+        </header>
+
+        <!-- Main Card Component -->
+        <main class="game-card">
+            <!-- Mode Controller Section -->
+            <section class="controls-section">
+                <div class="mode-selector">
+                    <button id="mode-1p" class="btn-mode active">1 Player</button>
+                    <button id="mode-2p" class="btn-mode">2 Players</button>
+                </div>
+                <div id="difficulty-wrapper" class="difficulty-selector">
+                    <button id="diff-easy" class="btn-diff active">Easy</button>
+                    <button id="diff-hard" class="btn-diff">Hard</button>
+                </div>
+            </section>
+
+            <!-- Status & Turn Indicator -->
+            <section class="status-section">
+                <div class="turn-indicator" id="turn-indicator">
+                    <span class="turn-label">Turn</span>
+                    <div class="turn-badge X-turn" id="turn-badge">
+                        <span id="turn-symbol">X</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Game Board (3x3 Grid) -->
+            <section class="board-wrapper">
+                <div class="board" id="board">
+                    <button class="cell" data-index="0" aria-label="ช่องที่ 1"></button>
+                    <button class="cell" data-index="1" aria-label="ช่องที่ 2"></button>
+                    <button class="cell" data-index="2" aria-label="ช่องที่ 3"></button>
+                    <button class="cell" data-index="3" aria-label="ช่องที่ 4"></button>
+                    <button class="cell" data-index="4" aria-label="ช่องที่ 5"></button>
+                    <button class="cell" data-index="5" aria-label="ช่องที่ 6"></button>
+                    <button class="cell" data-index="6" aria-label="ช่องที่ 7"></button>
+                    <button class="cell" data-index="7" aria-label="ช่องที่ 8"></button>
+                    <button class="cell" data-index="8" aria-label="ช่องที่ 9"></button>
+                </div>
+            </section>
+
+            <!-- Scoreboard -->
+            <section class="score-board">
+                <div class="score-card x-score">
+                    <div class="score-title" id="score-x-title">X (You)</div>
+                    <div class="score-val" id="score-x">0</div>
+                </div>
+                <div class="score-card tie-score">
+                    <div class="score-title">Ties</div>
+                    <div class="score-val" id="score-ties">0</div>
+                </div>
+                <div class="score-card o-score">
+                    <div class="score-title" id="score-o-title">O (AI)</div>
+                    <div class="score-val" id="score-o">0</div>
+                </div>
+            </section>
+
+            <!-- Reset / Restart Actions -->
+            <section class="actions-section">
+                <button id="btn-restart" class="btn-action secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+                    </svg>
+                    <span>Restart Round</span>
+                </button>
+                <button id="btn-reset" class="btn-action danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    <span>Reset All</span>
+                </button>
+            </section>
+        </main>
+    </div>
+
+    <!-- Script Injection -->
+    <script src="script.js"></script>
+</body>
+</html>

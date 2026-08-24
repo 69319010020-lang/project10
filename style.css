@@ -1,0 +1,486 @@
+/* style.css */
+
+/* Custom Variables */
+:root {
+    --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #f0f9ff 100%);
+    --card-bg: rgba(255, 255, 255, 0.45);
+    --card-border: rgba(255, 255, 255, 0.6);
+    --text-primary: #0f172a;
+    --text-muted: #475569;
+    --shadow-color: rgba(15, 23, 42, 0.08);
+    
+    /* Player Colors */
+    --color-x: #ff6b6b;
+    --color-x-bg: rgba(255, 107, 107, 0.1);
+    --color-o: #3b82f6;
+    --color-o-bg: rgba(59, 130, 246, 0.1);
+    --color-tie: #64748b;
+    --color-tie-bg: rgba(100, 116, 139, 0.1);
+    
+    /* Interactive Button Colors */
+    --btn-active-bg: #ffffff;
+    --btn-inactive-text: #64748b;
+    --btn-hover-scale: scale(1.02);
+    --btn-tap-scale: scale(0.97);
+}
+
+/* Reset Defaults */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    width: 100vw;
+    height: 100dvh;
+    background: var(--bg-gradient);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: var(--text-primary);
+    padding: 12px;
+}
+
+/* Application Container */
+.app-container {
+    width: 100%;
+    max-width: 440px;
+    height: 100%;
+    max-height: min(720px, 95dvh);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Header Section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+    flex-shrink: 0;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
+
+/* Sound Toggle Button */
+.btn-icon {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(12px);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px var(--shadow-color);
+}
+
+.btn-icon:hover {
+    color: var(--text-primary);
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.btn-icon:active {
+    transform: scale(0.95);
+}
+
+.btn-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Main Game Card */
+.game-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 16px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05),
+                0 8px 10px -6px rgba(15, 23, 42, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    flex-grow: 1;
+    min-height: 0; /* Prevents overflow */
+}
+
+/* Mode Selection Controls */
+.controls-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.mode-selector, .difficulty-selector {
+    display: flex;
+    background: rgba(15, 23, 42, 0.05);
+    padding: 4px;
+    border-radius: 14px;
+    width: 100%;
+}
+
+.btn-mode, .btn-diff {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--btn-inactive-text);
+    transition: all 0.2s ease;
+}
+
+.btn-mode.active, .btn-diff.active {
+    background: var(--btn-active-bg);
+    color: var(--text-primary);
+    box-shadow: 0 4px 6px -1px var(--shadow-color);
+}
+
+/* Smooth hide/show difficulty with scale */
+.difficulty-selector {
+    transform-origin: top center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.difficulty-selector.slide-up {
+    margin-top: -42px;
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    visibility: hidden;
+}
+
+/* Turn Indicator Status */
+.status-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 0;
+    flex-shrink: 0;
+}
+
+.turn-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.turn-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+
+.turn-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    font-size: 1.1rem;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.turn-badge.X-turn {
+    background: var(--color-x-bg);
+    color: var(--color-x);
+}
+
+.turn-badge.O-turn {
+    background: var(--color-o-bg);
+    color: var(--color-o);
+}
+
+/* Board Layout Wrapper to center the board dynamically */
+.board-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    min-height: 0;
+    margin: 8px 0;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: min(290px, 32vh);
+    max-height: min(290px, 32vh);
+}
+
+/* Cell Styles */
+.cell {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell:hover:not(.x):not(.o) {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px -2px rgba(15, 23, 42, 0.06);
+}
+
+.cell:active {
+    transform: scale(0.95);
+}
+
+/* drawing X and O inside cell */
+.cell::before, .cell::after {
+    content: '';
+    position: absolute;
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: scale(0);
+}
+
+/* Draw X */
+.cell.x::before, .cell.x::after {
+    width: 8%;
+    height: 55%;
+    background-color: var(--color-x);
+    transform: scale(1) rotate(45deg);
+}
+
+.cell.x::after {
+    transform: scale(1) rotate(-45deg);
+}
+
+/* Draw O */
+.cell.o::before {
+    width: 48%;
+    height: 48%;
+    border: 6px solid var(--color-o);
+    border-radius: 50%;
+    transform: scale(1);
+}
+
+/* Winning combination animation */
+.cell.win {
+    background: #ffffff;
+    border-color: #22c55e;
+    animation: winPulse 1.2s infinite alternate;
+}
+
+.cell.win.x::before, .cell.win.x::after {
+    background-color: #22c55e;
+}
+
+.cell.win.o::before {
+    border-color: #22c55e;
+}
+
+@keyframes winPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(34, 197, 94, 0);
+    }
+    100% {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+    }
+}
+
+/* Scoreboard Styles */
+.score-board {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.score-card {
+    flex: 1;
+    border-radius: 16px;
+    padding: 8px 6px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+}
+
+.x-score {
+    background: var(--color-x-bg);
+    color: var(--color-x);
+}
+
+.o-score {
+    background: var(--color-o-bg);
+    color: var(--color-o);
+}
+
+.tie-score {
+    background: var(--color-tie-bg);
+    color: var(--color-tie);
+}
+
+.score-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+    margin-bottom: 2px;
+}
+
+.score-val {
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+/* Reset & Restart Actions Section */
+.actions-section {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-shrink: 0;
+}
+
+.btn-action {
+    flex: 1;
+    border: none;
+    border-radius: 14px;
+    padding: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px var(--shadow-color);
+}
+
+.btn-action.secondary {
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 1);
+}
+
+.btn-action.secondary:hover {
+    background: #ffffff;
+    transform: translateY(-1px);
+}
+
+.btn-action.danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+.btn-action.danger:hover {
+    background: rgba(239, 68, 68, 0.15);
+    transform: translateY(-1px);
+}
+
+.btn-action:active {
+    transform: scale(0.97);
+}
+
+.btn-action .icon {
+    width: 14px;
+    height: 14px;
+}
+
+/* Media Queries for fine tuning smaller screens */
+@media (max-height: 580px) {
+    .app-container {
+        gap: 6px;
+    }
+    .title {
+        font-size: 1.4rem;
+    }
+    .btn-icon {
+        width: 32px;
+        height: 32px;
+    }
+    .btn-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+    .game-card {
+        padding: 10px;
+        border-radius: 18px;
+    }
+    .btn-mode, .btn-diff {
+        padding: 5px 8px;
+        font-size: 0.8rem;
+    }
+    .difficulty-selector.slide-up {
+        margin-top: -30px;
+    }
+    .status-section {
+        margin: 4px 0;
+    }
+    .turn-indicator {
+        padding: 4px 10px;
+        gap: 8px;
+    }
+    .turn-label {
+        font-size: 0.75rem;
+    }
+    .turn-badge {
+        width: 24px;
+        height: 24px;
+        font-size: 0.9rem;
+    }
+    .score-card {
+        padding: 4px 2px;
+    }
+    .score-title {
+        font-size: 0.65rem;
+    }
+    .score-val {
+        font-size: 1rem;
+    }
+    .btn-action {
+        padding: 6px;
+        font-size: 0.75rem;
+        border-radius: 10px;
+    }
+}
